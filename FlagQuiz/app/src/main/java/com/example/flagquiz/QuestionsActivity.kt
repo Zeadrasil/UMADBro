@@ -31,6 +31,9 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var optionFourTV: TextView? = null
     private var submitBtn: Button? = null
 
+    var playerCharacter = PlayerCharacter()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_questions)
@@ -40,12 +43,12 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         //bind controls to the created variables
         questionTV = findViewById(R.id.questionTV)
         flagTV = findViewById(R.id.flagIV)
-        progressPB = findViewById(R.id.progressPB)
-        progressTV = findViewById(R.id.progressTV)
+        progressPB = findViewById(R.id.mentalHealthPB)
+        progressTV = findViewById(R.id.mentalHealthTV)
         optionOneTV = findViewById(R.id.optionOneTV)
         optionTwoTV = findViewById(R.id.optionTwoTV)
-        optionThreeTV = findViewById(R.id.optionThreeTV)
-        optionFourTV = findViewById(R.id.optionFourTV)
+        //optionThreeTV = findViewById(R.id.optionThreeTV)
+        //optionFourTV = findViewById(R.id.optionFourTV)
         submitBtn = findViewById(R.id.submitBtn)
 
         //add click listeners
@@ -57,6 +60,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         questionsList = Constants.getQuestions()
         setQuestion()
+
     }
 
     private fun setQuestion() {
@@ -66,15 +70,15 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         //set up question
         questionTV?.text = question.question
-        flagTV?.setImageResource(question.image)
+        //flagTV?.setImageResource(question.image)
         progressPB?.progress = currentPosition
         progressTV?.text = "$currentPosition / ${progressPB?.max}"
 
         //set up the answers
-        optionOneTV?.text = question.optionOne
-        optionTwoTV?.text = question.optionTwo
-        optionThreeTV?.text = question.optionThree
-        optionFourTV?.text = question.optionFour
+        //optionOneTV?.text = question.optionOne
+        //optionTwoTV?.text = question.optionTwo
+        //optionThreeTV?.text = question.optionThree
+        //optionFourTV?.text = question.optionFour
     }
 
     private fun defaultOptionsView() {
@@ -113,14 +117,14 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 optionTwoTV?.let {
                     selectedOptionView(it, 2)
                 }
-            R.id.optionThreeTV ->
-                optionThreeTV?.let {
-                    selectedOptionView(it, 3)
-                }
-            R.id.optionFourTV ->
-                optionFourTV?.let {
-                    selectedOptionView(it, 4)
-                }
+            //R.id.optionThreeTV ->
+            //    optionThreeTV?.let {
+            //        selectedOptionView(it, 3)
+            //    }
+            //R.id.optionFourTV ->
+            //    optionFourTV?.let {
+            //        selectedOptionView(it, 4)
+            //    }
             R.id.submitBtn -> {
                 if (selectedOptionPosition == 0) {
                     currentPosition++
@@ -139,25 +143,25 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 else {
                     //get the current question
-                    val question = questionsList?.get(currentPosition- 1)
-
-                    // got it wrog
-                    if (question?.correctAnswer != selectedOptionPosition) {
-                        answerView(selectedOptionPosition, R.drawable.wrog_option_border_bg)
-                    }
-                    //got it right
-                    else {
-                        correctAnswers++
-                    }
-
-                    answerView(question!!.correctAnswer, R.drawable.correct_option_border_bg)
-
-                    if (currentPosition == questionsList!!.size)
-                        submitBtn?.text = "FINISH"
-                    else
-                        submitBtn?.text = "NEXT QUESTION"
-
-                    selectedOptionPosition = 0
+                    //val question = questionsList?.get(currentPosition- 1)
+//
+                    //// got it wrog
+                    //if (question?.correctAnswer != selectedOptionPosition) {
+                    //    answerView(selectedOptionPosition, R.drawable.wrog_option_border_bg)
+                    //}
+                    ////got it right
+                    //else {
+                    //    correctAnswers++
+                    //}
+//
+                    //answerView(question!!.correctAnswer, R.drawable.correct_option_border_bg)
+//
+                    //if (currentPosition == questionsList!!.size)
+                    //    submitBtn?.text = "FINISH"
+                    //else
+                    //    submitBtn?.text = "NEXT QUESTION"
+//
+                    //selectedOptionPosition = 0
                 }
             }
         }
