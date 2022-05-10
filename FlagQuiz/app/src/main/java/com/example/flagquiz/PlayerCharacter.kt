@@ -1,6 +1,8 @@
 package com.example.flagquiz
 
-class PlayerCharacter ()
+import java.io.Serializable
+
+class PlayerCharacter () : Serializable
 {
     //declare fields
     private var mentalHealth: Int = 50
@@ -25,10 +27,10 @@ class PlayerCharacter ()
     //member function
     public fun changeStats(mentalHealthChange: Int, physicalHealthChange: Int, moneyChange: Int, karmaChanged: Int)
     {
-        mentalHealth += mentalHealthChange
-        physicalHealth += physicalHealthChange
-        money += moneyChange
-        karma += karmaChanged
+        mentalHealth = mentalHealth.plus(mentalHealthChange)
+        physicalHealth = physicalHealth.plus(physicalHealthChange)
+        money = money.plus(moneyChange)
+        karma = karma.plus(karmaChanged)
     }
 }
 
