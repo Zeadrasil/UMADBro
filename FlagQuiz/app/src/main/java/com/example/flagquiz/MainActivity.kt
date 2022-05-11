@@ -2,6 +2,7 @@
 //date: 5/10/2022
 //desc: Welcome form for "Poor Life Decisions". Takes in the player designated username and passes to Constants.
 //      Creates the PlayerCharacter instance that will be used for the game loop and passes to QuestionsActivity via intent.
+//background resource: https://wallpaperaccess.com/full/179598.jpg
 
 package com.example.flagquiz
 
