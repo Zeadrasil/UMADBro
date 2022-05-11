@@ -1,3 +1,6 @@
+//Author: David Griffith
+//Date: 5/10/2022
+//Description: Object containing all of the different choices that the user has the ability to make
 package com.example.flagquiz
 
 object Constants {

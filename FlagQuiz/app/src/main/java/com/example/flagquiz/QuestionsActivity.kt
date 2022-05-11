@@ -145,7 +145,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 else
                 {
                     //decrement player character's stats by a set amount if they choose "no"
-                    playerCharacter!!.changeStats(-1, -1, -1, -1)
+                    playerCharacter!!.changeStats(-5, -5, -5, -5)
                 }
 
                 //if player is not dead, get another question
@@ -159,6 +159,40 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 //else, player character is dead and should be sent to the result activity
                 else
                 {
+                    //sets the string to be displayed to the death message for that type of death
+                    if(playerCharacter!!.getMentalHealth() < 1)
+                    {
+                        playerCharacter!!.setDeathMessage(0)
+                    }
+                    else if(playerCharacter!!.getMentalHealth() > 99)
+                    {
+                        playerCharacter!!.setDeathMessage(1)
+                    }
+                    else if(playerCharacter!!.getPhysicalHealth() < 1)
+                    {
+                        playerCharacter!!.setDeathMessage(2)
+                    }
+                    else if(playerCharacter!!.getPhysicalHealth() > 99)
+                    {
+                        playerCharacter!!.setDeathMessage(3)
+                    }
+                    else if(playerCharacter!!.getMoney() < 1)
+                    {
+                        playerCharacter!!.setDeathMessage(4)
+                    }
+                    else if(playerCharacter!!.getMoney() > 99)
+                    {
+                        playerCharacter!!.setDeathMessage(5)
+                    }
+                    else if(playerCharacter!!.getKarma() < 1)
+                    {
+                        playerCharacter!!.setDeathMessage(6)
+                    }
+                    else
+                    {
+                        playerCharacter!!.setDeathMessage(7)
+                    }
+
                     val intent: Intent = Intent(this, ResultActivity::class.java)
                     intent.putExtra("Player", playerCharacter)
                     intent.putExtra("Death", playerCharacter?.getDayDied())
