@@ -151,12 +151,17 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                     currentPosition++
 
                     when {
-                        currentPosition <= questionsList!!.size -> setQuestion()
+                        (playerCharacter!!.getMentalHealth() > 0 && playerCharacter!!.getMentalHealth() < 100
+                                && playerCharacter!!.getPhysicalHealth() > 0 && playerCharacter!!.getPhysicalHealth() < 100
+                                && playerCharacter!!.getMoney() > 0 && playerCharacter!!.getMoney() < 100
+                                && playerCharacter!!.getKarma() > 0 && playerCharacter!!.getKarma() < 100) -> setQuestion()
+                        //currentPosition <= questionsList!!.size -> setQuestion()
                         else -> {
                             val intent: Intent = Intent(this, ResultActivity::class.java)
                             intent.putExtra(Constants.USERNAME, username)
                             intent.putExtra(Constants.CORRECT_ANSWERS, correctAnswers)
                             intent.putExtra(Constants.TOTAL_QUESTIONS, questionsList!!.size)
+                            intent.putExtra("Player", playerCharacter)
                             startActivity(intent)
                             finish()
                         }
@@ -164,8 +169,17 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 else {
                     //get the current question
-                    //val question = questionsList?.get(currentPosition- 1)
+                    val question = questionsList?.get(currentPosition- 1)
 //
+                    if(selectedOptionPosition == 1)
+                    {
+                        //do yes stuff
+                        //playerCharacter!!.changeStats()
+                    }
+                    else
+                    {
+                        playerCharacter!!.changeStats(-1, -1, -1, -1, 1)
+                    }
                     //// got it wrog
                     //if (question?.correctAnswer != selectedOptionPosition) {
                     //    answerView(selectedOptionPosition, R.drawable.wrog_option_border_bg)
@@ -177,12 +191,12 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 //
                     //answerView(question!!.correctAnswer, R.drawable.correct_option_border_bg)
 //
-                    //if (currentPosition == questionsList!!.size)
-                    //    submitBtn?.text = "FINISH"
-                    //else
-                    //    submitBtn?.text = "NEXT QUESTION"
+                    if (currentPosition == questionsList!!.size)
+                        submitBtn?.text = "FINISH"
+                    else
+                        submitBtn?.text = "NEXT QUESTION"
 //
-                    //selectedOptionPosition = 0
+                    selectedOptionPosition = 0
                 }
             }
         }

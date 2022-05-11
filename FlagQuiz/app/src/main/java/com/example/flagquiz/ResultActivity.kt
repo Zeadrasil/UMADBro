@@ -14,9 +14,12 @@ class ResultActivity : AppCompatActivity() {
         val nameTV: TextView = findViewById(R.id.nameTV)
         val scoreTV: TextView = findViewById(R.id.scoreTV)
         val finishBtn: Button = findViewById(R.id.finishBtn)
+        var playerCharacter: PlayerCharacter? = null
+
+        playerCharacter = intent.getSerializableExtra("Player") as? PlayerCharacter
 
         nameTV.text = intent.getStringExtra(Constants.USERNAME)
-        scoreTV.text = "Your score: ${intent.getIntExtra(Constants.CORRECT_ANSWERS, 0)} / ${intent.getIntExtra(Constants.TOTAL_QUESTIONS, 0)}"
+        scoreTV.text = "You survived: ${playerCharacter!!.getDayDied()}"
 
         finishBtn.setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))

@@ -9,6 +9,7 @@ class PlayerCharacter () : Serializable
     private var physicalHealth: Int = 50
     private var money: Int = 50
     private var karma: Int = 50
+    private var dayDied: Int = 0
 
     //accessors
     public fun getMentalHealth(): Int {
@@ -23,14 +24,18 @@ class PlayerCharacter () : Serializable
     public fun getKarma(): Int {
         return karma
     }
+    public fun getDayDied(): Int {
+        return dayDied
+    }
 
     //member function
-    public fun changeStats(mentalHealthChange: Int, physicalHealthChange: Int, moneyChange: Int, karmaChanged: Int)
+    public fun changeStats(mentalHealthChange: Int, physicalHealthChange: Int, moneyChange: Int, karmaChanged: Int, dayDiedChanged: Int)
     {
         mentalHealth = mentalHealth.plus(mentalHealthChange)
         physicalHealth = physicalHealth.plus(physicalHealthChange)
         money = money.plus(moneyChange)
         karma = karma.plus(karmaChanged)
+        dayDied = dayDied.plus(dayDiedChanged)
     }
 }
 
