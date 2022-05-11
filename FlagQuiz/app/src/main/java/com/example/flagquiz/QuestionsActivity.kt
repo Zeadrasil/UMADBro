@@ -31,7 +31,6 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var moneyTV: TextView? = null
     private var karmaPB: ProgressBar? = null
     private var karmaTV: TextView? = null
-    private var RNG: Random = Random(10000)
 
 
     private var yesTV: TextView? = null
@@ -82,7 +81,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         while(currentPosition == lastPosition)
         {
-            currentPosition = RNG.nextInt(0, questionsList!!.size + 1)
+            currentPosition = Random.nextInt(questionsList!!.size + 1)
         }
         val question: Question = questionsList!![currentPosition - 1]
 

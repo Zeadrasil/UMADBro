@@ -11,14 +11,12 @@ class ResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
 
-        val nameTV: TextView = findViewById(R.id.nameTV)
         val scoreTV: TextView = findViewById(R.id.scoreTV)
         val finishBtn: Button = findViewById(R.id.finishBtn)
         var playerCharacter: PlayerCharacter? = null
 
         playerCharacter = intent.getSerializableExtra("Player") as? PlayerCharacter
 
-        nameTV.text = intent.getStringExtra(Constants.USERNAME)
         scoreTV.text = "${intent.getStringExtra(Constants.USERNAME)} survived: ${playerCharacter!!.getDayDied()} days!"
 
         finishBtn.setOnClickListener{
