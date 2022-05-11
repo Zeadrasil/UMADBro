@@ -29,13 +29,17 @@ class PlayerCharacter () : Serializable
     }
 
     //member function
-    public fun changeStats(mentalHealthChange: Int, physicalHealthChange: Int, moneyChange: Int, karmaChanged: Int, dayDiedChanged: Int)
+    public fun changeStats(mentalHealthChange: Int, physicalHealthChange: Int, moneyChange: Int, karmaChanged: Int)
     {
         mentalHealth = mentalHealth.plus(mentalHealthChange)
         physicalHealth = physicalHealth.plus(physicalHealthChange)
         money = money.plus(moneyChange)
         karma = karma.plus(karmaChanged)
-        dayDied = dayDied.plus(dayDiedChanged)
+    }
+
+    public fun playerSurvived()
+    {
+        dayDied++
     }
 }
 

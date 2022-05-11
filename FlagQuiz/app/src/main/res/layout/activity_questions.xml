@@ -24,14 +24,6 @@
             android:textSize="22sp"
             tools:text="Poor life decision here" />
 
-        <ImageView
-            android:id="@+id/flagIV"
-            android:layout_width="255dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/flag_image"
-            tools:src="@drawable/ic_flag_germany" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

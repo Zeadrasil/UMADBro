@@ -11,18 +11,18 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import kotlin.random.Random
 
 class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     private var username: String? = null
 
     private var currentPosition: Int = 1
+    private var lastPosition: Int = 1
     private var questionsList: ArrayList<Question>? = null
     private var selectedOptionPosition: Int = 0
-    private var correctAnswers: Int = 0
 
     private var questionTV: TextView? = null
-    private var flagTV: ImageView? = null
     private var mentalPB: ProgressBar? = null
     private var mentalTV: TextView? = null
     private var physPB: ProgressBar? = null
@@ -31,12 +31,11 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var moneyTV: TextView? = null
     private var karmaPB: ProgressBar? = null
     private var karmaTV: TextView? = null
+    private var RNG: Random = Random(10000)
 
 
     private var yesTV: TextView? = null
     private var noTV: TextView? = null
-    //private var optionThreeTV: TextView? = null
-    //private var optionFourTV: TextView? = null
     private var submitBtn: Button? = null
 
     var playerCharacter: PlayerCharacter? = null
@@ -51,7 +50,6 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         //bind controls to the created variables
         questionTV = findViewById(R.id.questionTV)
-        flagTV = findViewById(R.id.flagIV)
         mentalPB = findViewById(R.id.mentalHealthPB)
         mentalTV = findViewById(R.id.mentalHealthTV)
         physPB = findViewById(R.id.physicalHealthPB)
@@ -80,7 +78,12 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setQuestion() {
         defaultOptionsView()
+        lastPosition = currentPosition
 
+        while(currentPosition == lastPosition)
+        {
+            currentPosition = RNG.nextInt(0, questionsList!!.size + 1)
+        }
         val question: Question = questionsList!![currentPosition - 1]
 
         //set up question
@@ -147,56 +150,34 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
             //        selectedOptionView(it, 4)
             //    }
             R.id.submitBtn -> {
-                if (selectedOptionPosition == 0) {
-                    currentPosition++
 
-                    when {
-                        (playerCharacter!!.getMentalHealth() > 0 && playerCharacter!!.getMentalHealth() < 100
-                                && playerCharacter!!.getPhysicalHealth() > 0 && playerCharacter!!.getPhysicalHealth() < 100
-                                && playerCharacter!!.getMoney() > 0 && playerCharacter!!.getMoney() < 100
-                                && playerCharacter!!.getKarma() > 0 && playerCharacter!!.getKarma() < 100) -> setQuestion()
-                        //currentPosition <= questionsList!!.size -> setQuestion()
-                        else -> {
-                            val intent: Intent = Intent(this, ResultActivity::class.java)
-                            intent.putExtra(Constants.USERNAME, username)
-                            intent.putExtra(Constants.CORRECT_ANSWERS, correctAnswers)
-                            intent.putExtra(Constants.TOTAL_QUESTIONS, questionsList!!.size)
-                            intent.putExtra("Player", playerCharacter)
-                            startActivity(intent)
-                            finish()
-                        }
-                    }
+                val question = questionsList?.get(currentPosition- 1)
+                if(selectedOptionPosition == 1)
+                {
+                    playerCharacter!!.changeStats(question?.mentalHealthChange!!,
+                        question?.physicalHealthChange!!,
+                        question?.moneyChange!!,
+                        question?.karmaChange!!)
                 }
-                else {
-                    //get the current question
-                    val question = questionsList?.get(currentPosition- 1)
-//
-                    if(selectedOptionPosition == 1)
-                    {
-                        //do yes stuff
-                        //playerCharacter!!.changeStats()
-                    }
-                    else
-                    {
-                        playerCharacter!!.changeStats(-1, -1, -1, -1, 1)
-                    }
-                    //// got it wrog
-                    //if (question?.correctAnswer != selectedOptionPosition) {
-                    //    answerView(selectedOptionPosition, R.drawable.wrog_option_border_bg)
-                    //}
-                    ////got it right
-                    //else {
-                    //    correctAnswers++
-                    //}
-//
-                    //answerView(question!!.correctAnswer, R.drawable.correct_option_border_bg)
-//
-                    if (currentPosition == questionsList!!.size)
-                        submitBtn?.text = "FINISH"
-                    else
-                        submitBtn?.text = "NEXT QUESTION"
-//
-                    selectedOptionPosition = 0
+                else
+                {
+                    playerCharacter!!.changeStats(-1, -1, -1, -1)
+                }
+
+                if(playerCharacter!!.getMentalHealth() in 1..99
+                    && playerCharacter!!.getPhysicalHealth() in 1..99
+                    && playerCharacter!!.getMoney() in 1..99
+                    && playerCharacter!!.getKarma() in 1..99)
+                {
+                    setQuestion()
+                }
+                else
+                {
+                    val intent: Intent = Intent(this, ResultActivity::class.java)
+                    intent.putExtra("Player", playerCharacter)
+                    intent.putExtra("Death", playerCharacter?.getDayDied())
+                    startActivity(intent)
+                    finish()
                 }
             }
         }
