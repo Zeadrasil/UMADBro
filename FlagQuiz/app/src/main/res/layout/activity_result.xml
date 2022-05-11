@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/ic_background"
+    android:background="@drawable/ic_grim"
     android:orientation="vertical"
     android:padding="20dp"
     android:gravity="center"
@@ -21,19 +21,21 @@
         android:textSize="25sp" />
 
     <ImageView
-        android:id="@+id/trophyIV"
+        android:id="@+id/skullIV"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:contentDescription="@string/trophy_image"
-        android:src="@drawable/ic_trophy"
-        android:padding="30dp" />
+        android:contentDescription="@string/skull_image"
+        android:src="@drawable/ic_skull"
+        android:padding="30dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="120dp"/>
 
     <TextView
-        android:id="@+id/congratsTV"
+        android:id="@+id/deadTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/congrats"
+        android:text="@string/dead"
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -55,7 +57,7 @@
         android:layout_marginTop="10dp"
         android:textColor="@color/design_default_color_secondary_variant"
         android:textSize="20sp"
-        tools:text = "your score: 9 / 10" />
+        tools:text="You survived x days!" />
 
     <Button
         android:id="@+id/finishBtn"

@@ -19,7 +19,7 @@ class ResultActivity : AppCompatActivity() {
         playerCharacter = intent.getSerializableExtra("Player") as? PlayerCharacter
 
         nameTV.text = intent.getStringExtra(Constants.USERNAME)
-        scoreTV.text = "You survived: ${playerCharacter!!.getDayDied()}"
+        scoreTV.text = "You survived: ${playerCharacter!!.getDayDied()} days!"
 
         finishBtn.setOnClickListener{
             startActivity(Intent(this, MainActivity::class.java))

@@ -7,9 +7,9 @@
     <string name="start">START</string>
     <string name="submit">Submit</string>
     <string name="finish">FINISH</string>
-    <string name="congrats">Congratulations!</string>
+    <string name="dead">DEAD</string>
     <string name="flag_image">Flag Image</string>
-    <string name="trophy_image">Trophy Image</string>
+    <string name="skull_image">Skull Image</string>
     <string name="result">RESULT</string>
 
 </resources>
