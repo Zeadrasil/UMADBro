@@ -160,35 +160,35 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 //else, player character is dead and should be sent to the result activity
                 else
                 {
-                    if(playerCharacter!!.getMentalHealth() >= 0)
+                    if(playerCharacter!!.getMentalHealth() < 1)
                     {
                         playerCharacter!!.setDeathMessage(0)
                     }
-                    else if(playerCharacter!!.getMentalHealth() <= 100)
+                    else if(playerCharacter!!.getMentalHealth() > 99)
                     {
                         playerCharacter!!.setDeathMessage(1)
                     }
-                    else if(playerCharacter!!.getPhysicalHealth() >= 0)
+                    else if(playerCharacter!!.getPhysicalHealth() < 1)
                     {
                         playerCharacter!!.setDeathMessage(2)
                     }
-                    else if(playerCharacter!!.getPhysicalHealth() <= 100)
+                    else if(playerCharacter!!.getPhysicalHealth() > 99)
                     {
                         playerCharacter!!.setDeathMessage(3)
                     }
-                    else if(playerCharacter!!.getMoney() >= 0)
+                    else if(playerCharacter!!.getMoney() < 1)
                     {
                         playerCharacter!!.setDeathMessage(4)
                     }
-                    else if(playerCharacter!!.getMoney() <= 100)
+                    else if(playerCharacter!!.getMoney() > 99)
                     {
                         playerCharacter!!.setDeathMessage(5)
                     }
-                    else if(playerCharacter!!.getKarma() >= 0)
+                    else if(playerCharacter!!.getKarma() < 1)
                     {
                         playerCharacter!!.setDeathMessage(6)
                     }
-                    else if(playerCharacter!!.getKarma() <= 0)
+                    else
                     {
                         playerCharacter!!.setDeathMessage(7)
                     }

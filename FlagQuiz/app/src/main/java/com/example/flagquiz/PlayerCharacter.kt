@@ -57,7 +57,7 @@ class PlayerCharacter () : Serializable
             3-> causeOfDeath = "accidentally throwing an anvil straight up instead of forward during a competition"
             4-> causeOfDeath = "getting into a fight with a hobo over a $100 bill and getting a fatal infection from his dirty nails"
             5-> causeOfDeath = "a group of fanatics disobeyed Bill Wurtz and made a religion out of using the guillotine"
-            6-> causeOfDeath = "a magnetic meteorite fell on your house and caused an electromagnetic imbalance in" +
+            6-> causeOfDeath = "a magnetic meteorite fell on their house and caused an electromagnetic imbalance in" +
                     " the Earth's magnetosphere and exploding their phone while they were talking on it"
             7-> causeOfDeath = "finding a giant pile of extremely rare gold coins and suffocating while attempting to swim in them"
         }
