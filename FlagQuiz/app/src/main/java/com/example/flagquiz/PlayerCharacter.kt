@@ -15,6 +15,7 @@ class PlayerCharacter () : Serializable
     private var money: Int = 50
     private var karma: Int = 50
     private var dayDied: Int = 0
+    private var causeOfDeath: String = ""
 
     //accessors
     public fun getMentalHealth(): Int {
@@ -32,6 +33,9 @@ class PlayerCharacter () : Serializable
     public fun getDayDied(): Int {
         return dayDied
     }
+    public fun getCauseOfDeath(): String {
+        return causeOfDeath
+    }
 
     //member function for altering stats
     public fun changeStats(mentalHealthChange: Int, physicalHealthChange: Int, moneyChange: Int, karmaChanged: Int)
@@ -40,6 +44,22 @@ class PlayerCharacter () : Serializable
         physicalHealth = physicalHealth.plus(physicalHealthChange)
         money = money.plus(moneyChange)
         karma = karma.plus(karmaChanged)
+    }
+
+    //sets message based on how player died
+    public fun setDeathMessage(cause: Int)
+    {
+        when(cause)
+        {
+            0-> causeOfDeath = ""
+            1-> causeOfDeath = ""
+            2-> causeOfDeath = ""
+            3-> causeOfDeath = ""
+            4-> causeOfDeath = ""
+            5-> causeOfDeath = ""
+            6-> causeOfDeath = ""
+            7-> causeOfDeath = ""
+        }
     }
 
     //increments the "days" character has survived
