@@ -1,3 +1,8 @@
+//auth: Drake Hetland
+//date: 5/10/2022
+//desc: Welcome form for "Poor Life Decisions". Takes in the player designated username and passes to Constants.
+//      Creates the PlayerCharacter instance that will be used for the game loop and passes to QuestionsActivity via intent.
+
 package com.example.flagquiz
 
 import android.content.Intent
@@ -14,9 +19,12 @@ class MainActivity : AppCompatActivity() {
 
         val startBtn: Button = findViewById(R.id.startBtn)
         val nameET: EditText = findViewById(R.id.nameET)
+
+        //create instance of player character
         var playerCharacter = PlayerCharacter()
 
         startBtn.setOnClickListener{
+            //check if name text box is empty
             if (nameET.text.isEmpty())
                 Toast.makeText(this, "Please enter your name", Toast.LENGTH_LONG).show()
             else{
