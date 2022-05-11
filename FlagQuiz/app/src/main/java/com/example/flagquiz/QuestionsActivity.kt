@@ -154,46 +154,46 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                     && playerCharacter!!.getMoney() in 1..99
                     && playerCharacter!!.getKarma() in 1..99)
                 {
+                    playerCharacter!!.playerSurvived()
                     setQuestion()
                 }
                 //else, player character is dead and should be sent to the result activity
                 else
                 {
-                    //sets the string to be displayed to the death message for that type of death
-                    if(playerCharacter!!.getMentalHealth() < 1)
+                    if(playerCharacter!!.getMentalHealth() >= 0)
                     {
                         playerCharacter!!.setDeathMessage(0)
                     }
-                    else if(playerCharacter!!.getMentalHealth() > 99)
+                    else if(playerCharacter!!.getMentalHealth() <= 100)
                     {
                         playerCharacter!!.setDeathMessage(1)
                     }
-                    else if(playerCharacter!!.getPhysicalHealth() < 1)
+                    else if(playerCharacter!!.getPhysicalHealth() >= 0)
                     {
                         playerCharacter!!.setDeathMessage(2)
                     }
-                    else if(playerCharacter!!.getPhysicalHealth() > 99)
+                    else if(playerCharacter!!.getPhysicalHealth() <= 100)
                     {
                         playerCharacter!!.setDeathMessage(3)
                     }
-                    else if(playerCharacter!!.getMoney() < 1)
+                    else if(playerCharacter!!.getMoney() >= 0)
                     {
                         playerCharacter!!.setDeathMessage(4)
                     }
-                    else if(playerCharacter!!.getMoney() > 99)
+                    else if(playerCharacter!!.getMoney() <= 100)
                     {
                         playerCharacter!!.setDeathMessage(5)
                     }
-                    else if(playerCharacter!!.getKarma() < 1)
+                    else if(playerCharacter!!.getKarma() >= 0)
                     {
                         playerCharacter!!.setDeathMessage(6)
                     }
-                    else
+                    else if(playerCharacter!!.getKarma() <= 0)
                     {
                         playerCharacter!!.setDeathMessage(7)
                     }
-
                     val intent: Intent = Intent(this, ResultActivity::class.java)
+                    intent.putExtra(Constants.USERNAME, username)
                     intent.putExtra("Player", playerCharacter)
                     intent.putExtra("Death", playerCharacter?.getDayDied())
                     startActivity(intent)
