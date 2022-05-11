@@ -28,7 +28,7 @@ class ResultActivity : AppCompatActivity() {
         playerCharacter = intent.getSerializableExtra("Player") as? PlayerCharacter
 
         //display the player character's user name and how many "days" they survived for
-        scoreTV.text = "${intent.getStringExtra(Constants.USERNAME)} survived: ${playerCharacter!!.getDayDied()} days!"
+        scoreTV.text = "${intent.getStringExtra(Constants.USERNAME)} survived: ${playerCharacter!!.getDayDied()} days before ${playerCharacter.getCauseOfDeath()}!"
 
         //return player to welcome screen
         finishBtn.setOnClickListener{
