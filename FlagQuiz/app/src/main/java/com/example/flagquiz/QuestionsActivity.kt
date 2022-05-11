@@ -23,15 +23,23 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     private var questionTV: TextView? = null
     private var flagTV: ImageView? = null
-    private var progressPB: ProgressBar? = null
-    private var progressTV: TextView? = null
-    private var optionOneTV: TextView? = null
-    private var optionTwoTV: TextView? = null
-    private var optionThreeTV: TextView? = null
-    private var optionFourTV: TextView? = null
+    private var mentalPB: ProgressBar? = null
+    private var mentalTV: TextView? = null
+    private var physPB: ProgressBar? = null
+    private var physTV: TextView? = null
+    private var moneyPB: ProgressBar? = null
+    private var moneyTV: TextView? = null
+    private var karmaPB: ProgressBar? = null
+    private var karmaTV: TextView? = null
+
+
+    private var yesTV: TextView? = null
+    private var noTV: TextView? = null
+    //private var optionThreeTV: TextView? = null
+    //private var optionFourTV: TextView? = null
     private var submitBtn: Button? = null
 
-    var playerCharacter = PlayerCharacter()
+    var playerCharacter: PlayerCharacter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,23 +47,30 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_questions)
 
         username = intent.getStringExtra(Constants.USERNAME)
+        playerCharacter = intent.getSerializableExtra("Player") as? PlayerCharacter
 
         //bind controls to the created variables
         questionTV = findViewById(R.id.questionTV)
         flagTV = findViewById(R.id.flagIV)
-        progressPB = findViewById(R.id.mentalHealthPB)
-        progressTV = findViewById(R.id.mentalHealthTV)
-        optionOneTV = findViewById(R.id.optionOneTV)
-        optionTwoTV = findViewById(R.id.optionTwoTV)
+        mentalPB = findViewById(R.id.mentalHealthPB)
+        mentalTV = findViewById(R.id.mentalHealthTV)
+        physPB = findViewById(R.id.physicalHealthPB)
+        physTV = findViewById(R.id.physicalHealthTV)
+        moneyPB = findViewById(R.id.moneyPB)
+        moneyTV = findViewById(R.id.moneyTV)
+        karmaPB = findViewById(R.id.karmaPB)
+        karmaTV = findViewById(R.id.karmaTV)
+        yesTV = findViewById(R.id.optionOneTV)
+        noTV = findViewById(R.id.optionTwoTV)
         //optionThreeTV = findViewById(R.id.optionThreeTV)
         //optionFourTV = findViewById(R.id.optionFourTV)
         submitBtn = findViewById(R.id.submitBtn)
 
         //add click listeners
-        optionOneTV?.setOnClickListener(this)
-        optionTwoTV?.setOnClickListener(this)
-        optionThreeTV?.setOnClickListener(this)
-        optionFourTV?.setOnClickListener(this)
+        yesTV?.setOnClickListener(this)
+        noTV?.setOnClickListener(this)
+        //optionThreeTV?.setOnClickListener(this)
+        //optionFourTV?.setOnClickListener(this)
         submitBtn?.setOnClickListener(this)
 
         questionsList = Constants.getQuestions()
@@ -71,8 +86,14 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         //set up question
         questionTV?.text = question.question
         //flagTV?.setImageResource(question.image)
-        progressPB?.progress = currentPosition
-        progressTV?.text = "$currentPosition / ${progressPB?.max}"
+        mentalPB?.progress = playerCharacter!!.getMentalHealth()
+        mentalTV?.text = "${playerCharacter!!.getMentalHealth()} / ${mentalPB?.max}"
+        physPB?.progress = playerCharacter!!.getPhysicalHealth()
+        physTV?.text = "${playerCharacter!!.getPhysicalHealth()} / ${physPB?.max}"
+        moneyPB?.progress = playerCharacter!!.getMoney()
+        moneyTV?.text = "${playerCharacter!!.getMoney()} / ${moneyPB?.max}"
+        karmaPB?.progress = playerCharacter!!.getKarma()
+        karmaTV?.text = "${playerCharacter!!.getKarma()} / ${karmaPB?.max}"
 
         //set up the answers
         //optionOneTV?.text = question.optionOne
@@ -87,10 +108,10 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         submitBtn?.text = "SUBMIT"
 
         val options = ArrayList<TextView>()
-        optionOneTV?.let {options.add(0, it)}
-        optionTwoTV?.let {options.add(1, it)}
-        optionThreeTV?.let {options.add(2, it)}
-        optionFourTV?.let {options.add(3, it)}
+        yesTV?.let {options.add(0, it)}
+        noTV?.let {options.add(1, it)}
+        //optionThreeTV?.let {options.add(2, it)}
+        //optionFourTV?.let {options.add(3, it)}
 
         for (option in options){
             option.setTextColor(Color.parseColor("#7A8089"))
@@ -110,11 +131,11 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.optionOneTV ->
-                optionOneTV?.let {
+                yesTV?.let {
                     selectedOptionView(it, 1)
                 }
             R.id.optionTwoTV ->
-                optionTwoTV?.let {
+                noTV?.let {
                     selectedOptionView(it, 2)
                 }
             //R.id.optionThreeTV ->
@@ -169,10 +190,10 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun answerView(answer: Int, drawableView: Int) {
         when (answer) {
-            1 -> optionOneTV?.background = ContextCompat.getDrawable(this, drawableView)
-            2 -> optionTwoTV?.background = ContextCompat.getDrawable(this, drawableView)
-            3 -> optionThreeTV?.background = ContextCompat.getDrawable(this, drawableView)
-            4 -> optionFourTV?.background = ContextCompat.getDrawable(this, drawableView)
+            1 -> yesTV?.background = ContextCompat.getDrawable(this, drawableView)
+            2 -> noTV?.background = ContextCompat.getDrawable(this, drawableView)
+            //3 -> optionThreeTV?.background = ContextCompat.getDrawable(this, drawableView)
+            //4 -> optionFourTV?.background = ContextCompat.getDrawable(this, drawableView)
         }
     }
 }

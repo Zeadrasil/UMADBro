@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         val startBtn: Button = findViewById(R.id.startBtn)
         val nameET: EditText = findViewById(R.id.nameET)
+        var playerCharacter = PlayerCharacter()
 
         startBtn.setOnClickListener{
             if (nameET.text.isEmpty())
@@ -23,13 +24,12 @@ class MainActivity : AppCompatActivity() {
                 val intent: Intent = Intent(this, QuestionsActivity::class.java)
                 //send data via the intent
                 intent.putExtra(Constants.USERNAME, nameET.text.toString())
+                intent.putExtra("Player", playerCharacter)
                 //switch to the new activity
                 startActivity(intent)
                 //end current activity
                 finish()
             }
         }
-
-
     }
 }
