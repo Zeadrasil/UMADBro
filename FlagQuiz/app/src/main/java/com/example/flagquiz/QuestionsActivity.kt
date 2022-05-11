@@ -1,3 +1,7 @@
+//auth: Drake Hetland
+//edit: David Griffith
+//desc: Randomly pulls a question from the Constants object, and changes the player character's stats based on what they choose.
+
 package com.example.flagquiz
 
 import android.content.Intent
@@ -14,14 +18,12 @@ import androidx.core.content.ContextCompat
 import kotlin.random.Random
 
 class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
-
+    //declare a bunch of variables
     private var username: String? = null
-
     private var currentPosition: Int = 1
     private var lastPosition: Int = 1
     private var questionsList: ArrayList<Question>? = null
     private var selectedOptionPosition: Int = 0
-
     private var questionTV: TextView? = null
     private var mentalPB: ProgressBar? = null
     private var mentalTV: TextView? = null
@@ -31,12 +33,11 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var moneyTV: TextView? = null
     private var karmaPB: ProgressBar? = null
     private var karmaTV: TextView? = null
-
-
     private var yesTV: TextView? = null
     private var noTV: TextView? = null
     private var submitBtn: Button? = null
 
+    //declare an empty variable of type PlayerCharacter
     var playerCharacter: PlayerCharacter? = null
 
 
@@ -45,6 +46,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_questions)
 
         username = intent.getStringExtra(Constants.USERNAME)
+        //Assign empty variable to the passed PlayerCharacter instance
         playerCharacter = intent.getSerializableExtra("Player") as? PlayerCharacter
 
         //bind controls to the created variables
@@ -59,17 +61,14 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         karmaTV = findViewById(R.id.karmaTV)
         yesTV = findViewById(R.id.optionOneTV)
         noTV = findViewById(R.id.optionTwoTV)
-        //optionThreeTV = findViewById(R.id.optionThreeTV)
-        //optionFourTV = findViewById(R.id.optionFourTV)
         submitBtn = findViewById(R.id.submitBtn)
 
         //add click listeners
         yesTV?.setOnClickListener(this)
         noTV?.setOnClickListener(this)
-        //optionThreeTV?.setOnClickListener(this)
-        //optionFourTV?.setOnClickListener(this)
         submitBtn?.setOnClickListener(this)
 
+        //populate questions list
         questionsList = Constants.getQuestions()
         setQuestion()
 
@@ -87,7 +86,8 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
         //set up question
         questionTV?.text = question.question
-        //flagTV?.setImageResource(question.image)
+
+        //set/update values of progress bars and text views with values from player character
         mentalPB?.progress = playerCharacter!!.getMentalHealth()
         mentalTV?.text = "${playerCharacter!!.getMentalHealth()} / ${mentalPB?.max}"
         physPB?.progress = playerCharacter!!.getPhysicalHealth()
@@ -96,24 +96,15 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         moneyTV?.text = "${playerCharacter!!.getMoney()} / ${moneyPB?.max}"
         karmaPB?.progress = playerCharacter!!.getKarma()
         karmaTV?.text = "${playerCharacter!!.getKarma()} / ${karmaPB?.max}"
-
-        //set up the answers
-        //optionOneTV?.text = question.optionOne
-        //optionTwoTV?.text = question.optionTwo
-        //optionThreeTV?.text = question.optionThree
-        //optionFourTV?.text = question.optionFour
     }
 
     private fun defaultOptionsView() {
         //this method exists to 'reset' the option displays
-
         submitBtn?.text = "SUBMIT"
 
         val options = ArrayList<TextView>()
         yesTV?.let {options.add(0, it)}
         noTV?.let {options.add(1, it)}
-        //optionThreeTV?.let {options.add(2, it)}
-        //optionFourTV?.let {options.add(3, it)}
 
         for (option in options){
             option.setTextColor(Color.parseColor("#7A8089"))
@@ -140,19 +131,12 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 noTV?.let {
                     selectedOptionView(it, 2)
                 }
-            //R.id.optionThreeTV ->
-            //    optionThreeTV?.let {
-            //        selectedOptionView(it, 3)
-            //    }
-            //R.id.optionFourTV ->
-            //    optionFourTV?.let {
-            //        selectedOptionView(it, 4)
-            //    }
             R.id.submitBtn -> {
 
                 val question = questionsList?.get(currentPosition- 1)
                 if(selectedOptionPosition == 1)
                 {
+                    //changes player character's stats based on the "yes" stat change value of each question
                     playerCharacter!!.changeStats(question?.mentalHealthChange!!,
                         question?.physicalHealthChange!!,
                         question?.moneyChange!!,
@@ -160,9 +144,11 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 else
                 {
+                    //decrement player character's stats by a set amount if they choose "no"
                     playerCharacter!!.changeStats(-1, -1, -1, -1)
                 }
 
+                //if player is not dead, get another question
                 if(playerCharacter!!.getMentalHealth() in 1..99
                     && playerCharacter!!.getPhysicalHealth() in 1..99
                     && playerCharacter!!.getMoney() in 1..99
@@ -170,6 +156,7 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 {
                     setQuestion()
                 }
+                //else, player character is dead and should be sent to the result activity
                 else
                 {
                     val intent: Intent = Intent(this, ResultActivity::class.java)
@@ -186,8 +173,6 @@ class QuestionsActivity : AppCompatActivity(), View.OnClickListener {
         when (answer) {
             1 -> yesTV?.background = ContextCompat.getDrawable(this, drawableView)
             2 -> noTV?.background = ContextCompat.getDrawable(this, drawableView)
-            //3 -> optionThreeTV?.background = ContextCompat.getDrawable(this, drawableView)
-            //4 -> optionFourTV?.background = ContextCompat.getDrawable(this, drawableView)
         }
     }
 }

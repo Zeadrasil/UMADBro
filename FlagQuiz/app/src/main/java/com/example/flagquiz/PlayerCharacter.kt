@@ -1,3 +1,8 @@
+//auth: Drake Hetland
+//edit: David Griffith
+//date: 5/10/2022
+//desc: class to house various information necessary to make the game function
+
 package com.example.flagquiz
 
 import java.io.Serializable
@@ -28,7 +33,7 @@ class PlayerCharacter () : Serializable
         return dayDied
     }
 
-    //member function
+    //member function for altering stats
     public fun changeStats(mentalHealthChange: Int, physicalHealthChange: Int, moneyChange: Int, karmaChanged: Int)
     {
         mentalHealth = mentalHealth.plus(mentalHealthChange)
@@ -37,6 +42,7 @@ class PlayerCharacter () : Serializable
         karma = karma.plus(karmaChanged)
     }
 
+    //increments the "days" character has survived
     public fun playerSurvived()
     {
         dayDied++
